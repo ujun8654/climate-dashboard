@@ -6,6 +6,7 @@ import KPICards from './KPICards'
 import FilterBar from './FilterBar'
 import ChartSection from './ChartSection'
 import DataTable from './DataTable'
+import { getIndicatorList } from '@/lib/indicators'
 
 interface DashboardProps {
     initialData: ClimateData[]
@@ -60,24 +61,16 @@ export default function Dashboard({ initialData }: DashboardProps) {
             <KPICards data={filteredData} />
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12">
-                <ChartSection
-                    title="재생 에너지 비중 (%)"
-                    data={filteredData}
-                    indicatorCode="EG.FEC.RNEW.ZS"
-                    color="#fff"
-                />
-                <ChartSection
-                    title="1인당 전력 소비량 (kWh)"
-                    data={filteredData}
-                    indicatorCode="EG.USE.ELEC.KH.PC"
-                    color="#fff"
-                />
-                <ChartSection
-                    title="메탄 배출량 (kt CO2 eq)"
-                    data={filteredData}
-                    indicatorCode="EN.ATM.METH.KT.CE"
-                    color="#fff"
-                />
+                {getIndicatorList().map((indicator) => (
+                    <ChartSection
+                        key={indicator.code}
+                        title={`${indicator.name} (${indicator.unit})`}
+                        description={indicator.description}
+                        data={filteredData}
+                        indicatorCode={indicator.code}
+                        color={indicator.color}
+                    />
+                ))}
             </div>
 
             <DataTable data={filteredData} />

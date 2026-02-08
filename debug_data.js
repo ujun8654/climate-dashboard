@@ -21,8 +21,10 @@ async function checkData() {
     if (indError) {
         console.error('Error fetching indicators:', indError);
     } else {
-        const unique = [...new Set(indicators.map(i => `${i.indicator_code}: ${i.indicator_name}`))];
-        console.log('Unique Indicators found:', unique);
+        const unique = [...new Set(indicators.map(i => `${i.indicator_code} | ${i.indicator_name}`))];
+        console.log('--- AVAILABLE INDICATORS ---');
+        unique.forEach(i => console.log(i));
+        console.log('----------------------------');
     }
 
     console.log('\nChecking Methane Data (EN.ATM.METH.KT.CE)...');
