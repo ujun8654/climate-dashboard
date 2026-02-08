@@ -9,7 +9,7 @@ export default async function Page() {
   const climateData = await getClimateData()
 
   return (
-    <main className="min-h-screen bg-slate-950">
+    <main className="min-h-screen">
       <Suspense fallback={<div className="text-center p-20 text-white">Loading data...</div>}>
         <Dashboard initialData={climateData} />
       </Suspense>
